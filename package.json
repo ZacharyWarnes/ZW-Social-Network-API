@@ -1,12 +1,12 @@
 {
-    "name": "ZW-Social-Network-API",
+    "name": "zw-social-network-api",
     "version": "1.0.0",
     "description": "Mongoose back-end project - Main",
     "main": "server.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node index",
-        "dev": "nodemon index",
+        "start": "node server",
+        "dev": "nodemon server",
         "seed": "node utils/seed",
         "heroku-postbuild": "node utils/seed.js"
     },
