@@ -1,5 +1,5 @@
 const { User, Thought } = require('../models');
-const { Reaction } =require('../models/Reaction');
+
 
 module.exports = {
 
@@ -79,29 +79,36 @@ module.exports = {
                 res.status(500).json(err);
             })
     },
+
 //POST to create a reaction stored in a single thought's reactions array field
-createReaction(req,res) {
-    Reaction.create(req.body)
-    .then(({_id})=> {
-        return User.findOneAndUpdate(
-            {username: req.body.username},
-            {$push: { thoughts: _id}},
-            {new: true}
-        );
-    })
-    .then(thought => {
-        if(thought) {
-            res.json(though);
-        } else {
-            res.status(400).json({message: 'No User with this ID'});
-        };
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500),json(err);
-    })
+    createReaction(req,res) { 
+        Thought.findOneAndUpdate(
+            { _id: req.params.id },
+            { $addToSet: {reactions: req.body} },
+            { runValidators: true, new:true }
+        )
+            .then(thought => {
+                if(thought) {
+                    res.json(thought);
+                } else {
+                    res.status(400).json({message: 'No thought found with this ID'});
+                };
+            })    
 },
 
-
 //DELETE to pull and remove a reaction by reactionId value
-}
+    deleteReaction(req,res) {
+        Thought.findOneAndUpdate(
+            {_id: req.params.id},
+            { $pull: {reactions: {reactionsId: req.params.reactionsId}}},
+            {runValidators: true, new:true }
+        )
+            .then(thought => {
+                if(thought) {
+                    res.json(thought);
+                } else {
+                    res.status(400).json({ message: 'No thought found with this ID'})
+                };
+            })
+    }
+};
