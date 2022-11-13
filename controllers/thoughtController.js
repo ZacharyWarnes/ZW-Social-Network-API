@@ -1,4 +1,5 @@
 const { User, Thought } = require('../models');
+const { Reaction } =require('../models/Reaction');
 
 module.exports = {
 
@@ -10,25 +11,97 @@ module.exports = {
 },
 
 //GET a single thought by _id
-getSingleThought(req,res) {
-    Thought.findOne({_id: req.params.id})
+    getSingleThought(req,res) {
+        Thought.findOne({_id: req.params.id})
+            .then(thought => {
+                if(!thought) {
+                    res.status(400).json({message: 'No thought with this ID'});
+                    return;
+                };
+                res.json(thought);
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json(err);
+            });
+},
+//POST to create a new thought and push to user's thoughts array field
+    createThought(req,res) {
+        Thought.create(req.body)
+        .then(({_id})=> {
+            return User.findOneAndUpdate(
+                {username: req.body.username},
+                {$push: { thoughts: _id}},
+                {new: true}
+            );
+        })
         .then(thought => {
-            if(!thought) {
-                res.status(400).json({message: 'No thought with this ID'});
-                return;
+            if(thought) {
+                res.json(though);
+            } else {
+                res.status(400).json({message: 'No User with this ID'});
             };
-            res.json(thought);
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json(err);
+            res.status(500),json(err);
         })
-},
-//POST to create a new thought and push to user's thoughts array field
+    },
 
 //PUT to update a thought by its _id
-//DELETE to remove a thought by its _id
+    updateThought(req,res) {
+        Thought.findOneAndUpdate(
+            {_id: req.params.id},
+            {$set: req.body},
+            {runValidators: true, new:true}
+            )
+        .then(thought => {
+            if(thought) {
+                res.json(thought);
+            } else {
+                res.status(400).json({message: "No thought found with this ID"});
+            };
+        })
+    },
 
+//DELETE to remove a thought by its _id
+    removeThought(req,res) {
+        Thought.findOneAndDelete({_id: req.params.id})
+            .then(thought => {
+                if(thought) {
+                    res.json(thought);
+                } else {
+                    res.status(400).json({message: "No thought found with  this ID"});
+                };
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json(err);
+            })
+    },
 //POST to create a reaction stored in a single thought's reactions array field
+createReaction(req,res) {
+    Reaction.create(req.body)
+    .then(({_id})=> {
+        return User.findOneAndUpdate(
+            {username: req.body.username},
+            {$push: { thoughts: _id}},
+            {new: true}
+        );
+    })
+    .then(thought => {
+        if(thought) {
+            res.json(though);
+        } else {
+            res.status(400).json({message: 'No User with this ID'});
+        };
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500),json(err);
+    })
+},
+
+
 //DELETE to pull and remove a reaction by reactionId value
 }
