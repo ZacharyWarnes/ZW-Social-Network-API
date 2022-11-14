@@ -18,7 +18,7 @@ module.exports = {
     },
 
 //Get a single user by _id 
-    getSingleUser(req,res) {
+    getSingleUser(req, res) {
         User.findOne({_id: req.params.id})
             .then(user => {
                 if(!user) {
@@ -88,9 +88,11 @@ module.exports = {
                     res.status(400).json({message: 'No user with that ID'});
                     return;
                 };
+                console.log(user);
                 res.json(user);
             })
             .catch(err => {
+                console.log(err);
                 res.status(500).json(err);
             })
             
@@ -108,9 +110,11 @@ module.exports = {
                     res.status(400).json({message: 'No user with that ID'});
                     return;
                 };
+                console.log(user);
                 res.json(user);
             })
             .catch(err => {
+                console.log(user);
                 res.status(500).json(err);
             })
     }
