@@ -9,19 +9,12 @@ module.exports = {
         .catch((err) => res.status(500).json(err));   
     },
 
-//Get a single user by _id populated thought and friend data
+//Get a single user by _id 
     getSingleUser(req,res) {
         User.findOne({_id: req.params.id})
-            .populate({
-                path: 'thoughts', select: '-__v'
-            })
-            .populate({
-                path: 'friends', select: '-__v'
-            })
-            .select('-__v')
             .then(user => {
                 if(!user) {
-                    res.status(400).json({message: 'No user with this ID'});
+                    res.status(400).json({message: 'No User Found with this ID'});
                     return;
                 };
                 res.json(user);
