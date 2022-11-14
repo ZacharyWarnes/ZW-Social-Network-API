@@ -35,16 +35,16 @@ module.exports = {
                 {new: true}
             );
         })
-        .then(thought => {
-            if(thought) {
-                res.json(though);
+        .then(user => {
+            if(user) {
+                res.json(user);
             } else {
                 res.status(400).json({message: 'No User with this ID'});
             };
         })
         .catch(err => {
             console.log(err);
-            res.status(500),json(err);
+            res.status(500).json(err);
         })
     },
 
