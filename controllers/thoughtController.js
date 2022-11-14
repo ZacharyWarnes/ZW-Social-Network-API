@@ -110,5 +110,9 @@ module.exports = {
                     res.status(400).json({ message: 'No thought found with this ID'})
                 };
             })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json(err);
+            })
     }
 };

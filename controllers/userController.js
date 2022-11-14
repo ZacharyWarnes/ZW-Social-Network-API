@@ -106,6 +106,7 @@ module.exports = {
             {runValidators: true, new: true}
         )
             .then(user => {
+                console.log(user);
                 if(!user) {
                     res.status(400).json({message: 'No user with that ID'});
                     return;
