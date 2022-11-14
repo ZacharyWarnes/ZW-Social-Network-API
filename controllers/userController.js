@@ -9,8 +9,10 @@ module.exports = {
         .select('-__v')
         .then(user => {
             res.json(user);
+            console.log(user);
         })
         .catch(err => {
+            console.log(err);
             res.status(500).json(err);
         })   
     },
@@ -35,7 +37,10 @@ module.exports = {
     createUser(req,res) {
         User.create(req.body)
         .then(user => res.json(user))
-        .catch((err) => res.status(500).json(err));
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        })
     },
 
 //PUT to update a user by _id
