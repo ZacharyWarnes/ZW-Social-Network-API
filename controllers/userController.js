@@ -1,12 +1,18 @@
-const { User, Thought } = require('../models'); 
+const { User, Thought} = require('../models'); 
 
 
 //Get All users 
 module.exports = {
     getUsers(req, res) {
-        User.find()
-        .then((users) => res.json(users))
-        .catch((err) => res.status(500).json(err));   
+        User.find({})
+        .populate({path: 'thoughts', select: '-__v'})
+        .select('-__v')
+        .then(user => {
+            res.json(user);
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        })   
     },
 
 //Get a single user by _id 
@@ -52,13 +58,17 @@ module.exports = {
 //DELETE to remove user by _id
     removeUser(req,res) {
         User.findOneAndDelete({ _id: req.params.id })
-        .then((user) =>
-          !user
-            ? res.status(400).json({message: 'No user with that ID'})
-            : Thought.deleteMany({_id: { $in: user.thoughts }})
-        )
-        .then(()=> res.json({ message: 'User and associated thoughts deleted' })
-        .catch((err) => res.status(500).json(err)));
+        .then(user => {
+            if(!user) {
+                res.status(400).json({message: 'No user with that ID'});
+                return;
+            };
+            res.json(user);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        })
     },
 
 //POST add a new friend to user's friend list 
