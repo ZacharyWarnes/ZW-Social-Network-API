@@ -1,7 +1,7 @@
 const { User, Thought } = require('../models');
 
 
-const thoughtController = {
+module.exports = {
 
 //GET all thoughts
     getThoughts(req, res) {
@@ -100,7 +100,7 @@ const thoughtController = {
     deleteReaction(req,res) {
         Thought.findOneAndUpdate(
             {_id: req.params.id},
-            { $pull: {reactions: {reactionsId: req.params.reactionsId}}},
+            { $pull: {reactions: {reactionId: req.params.reactionId}}},
             {runValidators: true, new:true }
         )
             .then(thought => {
@@ -117,4 +117,3 @@ const thoughtController = {
     }
 };
 
-module.exports = thoughtController;
