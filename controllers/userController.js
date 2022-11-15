@@ -48,7 +48,7 @@ module.exports = {
         User.findOneAndUpdate(
             {_id: req.params.id},
             {$set: req.body},
-            {new: true, runValidators: true}
+            {runValidators: true, new: true}
         )
         .then(user => {
             if(!user) {

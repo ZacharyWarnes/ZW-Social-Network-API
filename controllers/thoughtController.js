@@ -1,7 +1,7 @@
 const { User, Thought } = require('../models');
 
 
-module.exports = {
+const thoughtController = {
 
 //GET all thoughts
     getThoughts(req, res) {
@@ -116,3 +116,5 @@ module.exports = {
             })
     }
 };
+
+module.exports = thoughtController;
