@@ -20,7 +20,10 @@ module.exports = {
               ? res.status(404).json({ message: 'No thought with that ID'})
               : res.json(thought)
               )
-              .catch((err) => res.status(500).json(err));
+              .catch((err) => {
+                res.status(500).json(err)
+                console.log(err) 
+              });             
 },
 //POST to create a new thought and push to user's thoughts array field
     createThought(req,res) {
