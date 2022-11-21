@@ -30,6 +30,10 @@ Once the application is downloaded and opened in your code editor, make sure you
 
 ## **Demo**
 
+* Follow this link for a video that demonstrates the technical acceptance criteria outlined by the challenge instructions. FULL SCREEN FOR BEST RESOLUTION: 
+
+[Link to technical acceptance criteria](https://youtu.be/XvNVGVMFiM8)
+
 * Follow this link for instructions on how to initiate the program once you have cloned the repository to your local machine. FULL SCREEN FOR BEST RESOLUTION: 
 
 [Link to initiate instructions](https://youtu.be/AHj8967VVps)
