@@ -52,7 +52,7 @@ Once the application is downloaded and opened in your code editor, make sure you
 
 * Follow this link for a demonstration video on how this program creates and deletes Reactions. FULL SCREEN FOR BEST RESOLUTION: 
 
-[Reactions CRUD](https://youtu.be/-GnRe0TNPyE)
+[Reactions CREATE and DELETE](https://youtu.be/-GnRe0TNPyE)
 
 ## **Technologies**
 
